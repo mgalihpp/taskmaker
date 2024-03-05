@@ -14,6 +14,7 @@ import { NavItem, Organization } from "./nav-item";
 import { useQuery } from "@tanstack/react-query";
 import { Org } from "@prisma/client";
 import { fetcher } from "@/lib/fetcher";
+import { useParams } from "next/navigation";
 
 interface SidebarProps {
   storageKey?: string;
@@ -25,12 +26,12 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
     {},
   );
 
-  const { data, isLoading: isLoadedOrg } = useQuery<Org[]>({
+  const { organizationId } = useParams();
+
+  const { data, isLoading } = useQuery<Org[]>({
     queryKey: ["org"],
     queryFn: () => fetcher("/api/org"),
   });
-
-  console.log(data);
 
   //   const {
   //     organization: activeOrganization,
@@ -63,7 +64,7 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
     }));
   };
 
-  if (isLoadedOrg) {
+  if (isLoading) {
     return (
       <>
         <div className="mb-2 flex items-center justify-between">
@@ -104,7 +105,7 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
           data.map((organization) => (
             <NavItem
               key={organization.id}
-              isActive={organization.id === organization.id}
+              isActive={organization.id === organizationId}
               isExpanded={expanded[organization.id]}
               organization={organization as Organization}
               onExpand={onExpand}

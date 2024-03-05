@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Plus } from "lucide-react";
 import { Logo } from "@/components/logo";
@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { UserNav } from "@/components/user-avatar";
 import { useParams } from "next/navigation";
 import { UserOrganization } from "./user-organization";
-// import { FormPopover } from "@/components/form/form-popover";
+import { FormPopover } from "@/components/form/form-popover";
 
 // import { MobileSidebar } from "./mobile-sidebar";
 
@@ -20,19 +20,19 @@ export const Navbar = () => {
         <div className="hidden md:flex">
           <Logo />
         </div>
-        {/* <FormPopover align="start" side="bottom" sideOffset={18}> */}
-        <Button
-          size="sm"
-          className="hidden h-auto rounded-sm px-2  py-1.5 md:block"
-        >
-          Create
-        </Button>
-        {/* </FormPopover> */}
-        {/* <FormPopover> */}
-        <Button size="sm" className="block rounded-sm md:hidden">
-          <Plus className="h-4 w-4" />
-        </Button>
-        {/* </FormPopover> */}
+        <FormPopover align="start" side="bottom" sideOffset={18}>
+          <Button
+            size="sm"
+            className="hidden h-auto rounded-sm px-2  py-1.5 md:block"
+          >
+            Create
+          </Button>
+        </FormPopover>
+        <FormPopover>
+          <Button size="sm" className="block rounded-sm md:hidden">
+            <Plus className="h-4 w-4" />
+          </Button>
+        </FormPopover>
       </div>
       <div className="ml-auto flex items-center gap-x-2">
         {/* <OrganizationSwitcher

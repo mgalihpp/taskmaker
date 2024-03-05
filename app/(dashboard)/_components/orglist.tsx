@@ -4,6 +4,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Org } from "@prisma/client";
 import { Goal, ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -15,7 +16,16 @@ export const OrgList = (org: Org) => {
       className="flex w-full items-center justify-between"
     >
       <div className="flex items-center gap-2">
-        <Goal /> {org.name}
+        <div className="relative h-10 w-10">
+          <Image
+            src={org.image}
+            alt="org image"
+            className="object-cover"
+            fill
+          />
+        </div>
+
+        {org.name}
       </div>
       <ArrowRight className="h-4 w-4" />
     </Button>
@@ -44,7 +54,16 @@ OrgList.Select = function OrgListSelect(org: Org) {
       })}
     >
       <div className="flex items-center gap-2">
-        <Goal /> {org.name}
+        <div className="relative h-10 w-10">
+          <Image
+            src={org.image}
+            alt="org image"
+            className="object-cover"
+            fill
+          />
+        </div>
+
+        {org.name}
       </div>
       <ArrowRight className="h-4 w-4" />
     </Link>

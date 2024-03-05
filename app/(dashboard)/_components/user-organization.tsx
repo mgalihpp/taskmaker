@@ -12,7 +12,6 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { Org } from "@prisma/client";
 import { fetcher } from "@/lib/fetcher";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Goal } from "lucide-react";
 import { OrgList } from "./orglist";

@@ -19,13 +19,16 @@ import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useRef, useState } from "react";
 import { OrgList } from "../../_components/orglist";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "@/lib/firebase";
+import { generateRandomFilename } from "@/lib/utils";
 
 export default function OrganizationPage() {
   const [page, setPage] = useState(0);
 
-  const ref = useRef<HTMLButtonElement | null>(null);
-
   const router = useRouter();
+
+  const btnRef = useRef<HTMLButtonElement | null>(null);
 
   const { data, isLoading } = useQuery<Org[]>({
     queryKey: ["org"],
@@ -33,14 +36,15 @@ export default function OrganizationPage() {
   });
 
   const { execute, isPending, fieldErrors } = useAction(createOrg, {
-    onSuccess: (result) => router.push(`/organization/${result.orgId}`),
+    onSuccess: (result) => router.push(`/organization/${result.id}`),
   });
 
   const [input, setInput] = useState({
-    image: "",
     name: "",
     slugUrl: "",
   });
+
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -53,8 +57,45 @@ export default function OrganizationPage() {
     }));
   };
 
-  const handleFormAction = () => {
-    execute(input);
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const changeFile = e.target?.files?.[0];
+
+    if (changeFile) {
+      setImageFile(changeFile);
+    }
+  };
+
+  const handleFormAction = async () => {
+    try {
+      if (btnRef.current) {
+        btnRef.current.disabled = true;
+      }
+
+      if (imageFile) {
+        const fileName = generateRandomFilename();
+
+        const orgImageRef = ref(storage, `/taskmaker/org/image/${fileName}`);
+
+        await uploadBytes(orgImageRef, imageFile);
+
+        // this to get imageurl from firebase
+        const imageUrl = await getDownloadURL(orgImageRef);
+
+        execute({
+          image: imageUrl,
+          name: input.name,
+          slugUrl: input.slugUrl,
+        });
+      } else {
+        execute({
+          image: "https://mgalihpp.site/logo.jpg",
+          name: input.name,
+          slugUrl: input.slugUrl,
+        });
+      }
+    } catch (error) {
+      throw new Error("Something went wrong");
+    }
   };
 
   return (
@@ -72,7 +113,7 @@ export default function OrganizationPage() {
               {isLoading ? (
                 <OrgList.Skeleton length={5} />
               ) : data?.length === 0 ? (
-                <p className="text-sm">You doen&apos;st have organization</p>
+                <p className="text-sm">You doesn&apos;t have organization</p>
               ) : (
                 data?.map((org) => <OrgList.Select {...org} key={org.id} />)
               )}
@@ -121,7 +162,7 @@ export default function OrganizationPage() {
                     name="image"
                     type="file"
                     className="hidden"
-                    onChange={handleInputChange}
+                    onChange={handleFileChange}
                   />
                 </div>
               </div>
@@ -161,8 +202,9 @@ export default function OrganizationPage() {
               </Button>
               <Button
                 type="submit"
+                ref={btnRef}
                 disabled={
-                  !input.image || !input.name || !input.slugUrl || isPending
+                  !imageFile || !input.name || !input.slugUrl || isPending
                 }
                 className="text-sm font-bold uppercase"
                 size="sm"

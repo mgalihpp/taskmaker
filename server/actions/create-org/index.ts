@@ -42,7 +42,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     },
   });
 
-  return { data: Org };
+  return { data: newOrg };
 };
 
 export const createOrg = createSafeAction(CreateOrg, handler);

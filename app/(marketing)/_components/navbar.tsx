@@ -1,5 +1,5 @@
 import { Logo } from "@/components/logo";
-import { AuthModal } from "./authmodal";
+import AuthModal from "./authmodal";
 import { getServerAuthSession } from "@/server/auth";
 import { SignedModal } from "./signedmodal";
 export const Navbar = async () => {

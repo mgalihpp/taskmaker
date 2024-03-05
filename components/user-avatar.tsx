@@ -12,19 +12,23 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useSession } from "next-auth/react";
+import { useAuthModal } from "@/store/use-auth-modal";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export function UserNav() {
   const { data: session, status } = useSession();
+  const { set } = useAuthModal();
 
   const router = useRouter();
 
   useEffect(() => {
-    if (status === "loading") return; // Do nothing while session is loading
-    if (!session?.user?.id) router.push("/"); // Redirect if user is not logged in
-  }, [status, session, router]);
+    if (status === "unauthenticated") {
+      set({ open: true });
+      router.push("/");
+    }
+  }, [status, router, set]);
 
   return (
     <DropdownMenu>
@@ -65,8 +69,14 @@ export function UserNav() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          <Button
+            onClick={() => signOut()}
+            variant="outline"
+            className="w-full"
+            size="sm"
+          >
+            Logout
+          </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -9,16 +9,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useAuthModal } from "@/store/use-auth-modal";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { memo, useState } from "react";
 
-export const AuthModal = () => {
+const AuthModal = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const authModal = useAuthModal();
 
   return (
-    <Dialog>
+    <Dialog open={authModal.open} onOpenChange={authModal.toggleOpen}>
       <DialogTrigger asChild>
         <Button>Login</Button>
       </DialogTrigger>
@@ -38,13 +40,15 @@ export const AuthModal = () => {
             variant="outline"
             onClick={() => {
               setIsLoading(true);
-              signIn("google").then((result) => {
-                if (result?.ok) {
-                  setIsLoading(false);
-                } else {
-                  setIsLoading(false);
-                }
-              });
+              signIn("google", { callbackUrl: "/select-organization" }).then(
+                (result) => {
+                  if (result?.ok) {
+                    setIsLoading(false);
+                  } else {
+                    setIsLoading(false);
+                  }
+                },
+              );
             }}
             disabled={isLoading}
           >
@@ -102,3 +106,5 @@ const GoogleLogo = () => {
     </svg>
   );
 };
+
+export default memo(AuthModal);
