@@ -81,8 +81,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  revalidatePath(`/board/${board.id}`);
-  return { data: board };
+  revalidatePath(`/board/${board.id}/${orgId}`);
+
+  const boardWithOrgId = { ...board, orgId };
+
+  return { data: boardWithOrgId };
 };
 
 export const createBoard = createSafeAction(CreateBoard, handler);

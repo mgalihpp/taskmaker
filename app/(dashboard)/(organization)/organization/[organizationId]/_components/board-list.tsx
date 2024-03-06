@@ -54,7 +54,7 @@ export const BoardList = async ({ orgId }: BoardListProps) => {
         {boards.map((board) => (
           <Link
             key={board.id}
-            href={`/board/${board.id}`}
+            href={`/board/${board.id}/${orgId}`}
             className="group relative 
                 aspect-video h-full w-full overflow-hidden rounded-sm bg-sky-700 bg-cover 
                 bg-center bg-no-repeat p-2
