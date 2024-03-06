@@ -13,7 +13,15 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 
-export default function OrganizationCard({ users }: { users: User[] }) {
+interface OrganizationCardProps {
+  users: User[];
+  orgId: string;
+}
+
+export default function OrganizationCard({
+  users,
+  orgId,
+}: OrganizationCardProps) {
   const [activeTab, setActiveTab] = useState<"users" | "settings">("users");
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -80,7 +88,7 @@ export default function OrganizationCard({ users }: { users: User[] }) {
                     </ul>
                   </TabsContent>
                   <TabsContent value="invitations">
-                    <CopyInvitation />
+                    <CopyInvitation orgId={orgId} />
                   </TabsContent>
                 </Tabs>
               </div>

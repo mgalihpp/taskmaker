@@ -26,7 +26,7 @@ export const OrganizationProfile = async ({
 
   return (
     <div>
-      <OrganizationCard users={users} />
+      <OrganizationCard users={users} orgId={org.id} />
     </div>
   );
 };
