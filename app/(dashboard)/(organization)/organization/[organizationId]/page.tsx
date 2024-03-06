@@ -9,7 +9,7 @@ export default async function OrganizationPage({
 }: {
   params: { organizationId: string };
 }) {
-  const orgId = params.organizationId;
+  const { organizationId: orgId } = params;
 
   const isPro = await checkSubscription(orgId);
 

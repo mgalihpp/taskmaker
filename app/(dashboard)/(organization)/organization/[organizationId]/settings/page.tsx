@@ -8,7 +8,7 @@ export default async function SettingsPage({
 }: {
   params: { organizationId: string };
 }) {
-  const orgId = params.organizationId;
+  const { organizationId: orgId } = params;
 
   const isPro = await checkSubscription(orgId);
 

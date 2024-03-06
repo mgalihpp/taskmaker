@@ -10,7 +10,7 @@ export default async function BillingPage({
 }: {
   params: { organizationId: string };
 }) {
-  const orgId = params.organizationId;
+  const { organizationId: orgId } = params;
 
   const isPro = await checkSubscription(orgId);
 

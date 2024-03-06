@@ -7,10 +7,11 @@ import { UserNav } from "@/components/user-avatar";
 import { useParams } from "next/navigation";
 import { UserOrganization } from "./user-organization";
 import { FormPopover } from "@/components/form/form-popover";
+import { memo } from "react";
 
 // import { MobileSidebar } from "./mobile-sidebar";
 
-export const Navbar = () => {
+const Navbar = () => {
   const { organizationId } = useParams();
 
   return (
@@ -67,3 +68,5 @@ export const Navbar = () => {
     </nav>
   );
 };
+
+export default memo(Navbar);
