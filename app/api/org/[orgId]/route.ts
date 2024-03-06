@@ -1,14 +1,11 @@
 import { getServerAuthSession } from "@/server/auth";
 import { db } from "@/server/db";
-import { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  req: NextApiRequest,
-  { params }: { params: { orgId: string } },
-) {
+export async function GET(req: NextRequest) {
   try {
-    const { orgId } = params;
+    const pathname = req.nextUrl.pathname;
+    const orgId = pathname.split("/").pop();
 
     const session = await getServerAuthSession();
 
