@@ -31,3 +31,7 @@ export function getStorageRefFromDownloadURL(downloadURL: string) {
     return null;
   }
 }
+
+export function absoluteUrl(path: string) {
+  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
+};

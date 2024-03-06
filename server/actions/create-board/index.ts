@@ -1,7 +1,7 @@
 "use server";
 
 import { getServerAuthSession } from "@/server/auth";
-import { InputType, ReturnType } from "./type";
+import { InputType, ReturnType } from "./types";
 import { manageAvailableCount } from "@/services/org-board-limit";
 import { db } from "@/server/db";
 import { createAuditLog } from "@/services/create-audit-log";

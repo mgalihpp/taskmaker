@@ -33,19 +33,6 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
     queryFn: () => fetcher("/api/org"),
   });
 
-  //   const {
-  //     organization: activeOrganization,
-  //     isLoaded: isLoadedOrg
-  //   } = useOrganization();
-  //   const {
-  //     userMemberships,
-  //     isLoaded: isLoadedOrgList
-  //   } = useOrganizationList({
-  //     userMemberships: {
-  //       infinite: true,
-  //     },
-  //   });
-
   const defaultAccordionValue: string[] = Object.keys(expanded).reduce(
     (acc: string[], key: string) => {
       if (expanded[key]) {

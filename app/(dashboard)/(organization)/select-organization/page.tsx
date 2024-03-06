@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAction } from "@/hooks/use-action2";
+import { useAction } from "@/hooks/use-action";
 import { fetcher } from "@/lib/fetcher";
 import { createOrg } from "@/server/actions/create-org";
 import { Org } from "@prisma/client";
@@ -22,6 +22,7 @@ import { OrgList } from "../../_components/orglist";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "@/lib/firebase";
 import { generateRandomFilename } from "@/lib/utils";
+import Image from "next/image";
 
 export default function OrganizationPage() {
   const [page, setPage] = useState(0);
@@ -35,7 +36,11 @@ export default function OrganizationPage() {
     queryFn: () => fetcher("/api/org"),
   });
 
-  const { execute, isPending, fieldErrors } = useAction(createOrg, {
+  const {
+    execute,
+    isLoading: isPending,
+    fieldErrors,
+  } = useAction(createOrg, {
     onSuccess: (result) => router.push(`/organization/${result.id}`),
   });
 
@@ -148,7 +153,18 @@ export default function OrganizationPage() {
           <form action={handleFormAction}>
             <CardContent className="w-full space-y-6">
               <div className="flex w-full flex-row items-center gap-x-2">
-                <div className="h-10 w-10 bg-gray-800"></div>
+                {imageFile ? (
+                  <div className="relative h-10 w-10">
+                    <Image
+                      src={URL.createObjectURL(imageFile)}
+                      alt="dumb image"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="h-10 w-10 bg-gray-800"></div>
+                )}
                 <div className="flex flex-col items-center justify-center gap-2">
                   <Label>Profile image</Label>
                   <Label

@@ -13,10 +13,10 @@ export const OrgList = (org: Org) => {
     <Button
       key={org.id}
       variant="ghost"
-      className="flex w-full items-center justify-between"
+      className="flex h-12 w-full items-center justify-between"
     >
       <div className="flex items-center gap-2">
-        <div className="relative h-10 w-10">
+        <div className="relative h-8 w-8">
           <Image
             src={org.image}
             alt="org image"
@@ -38,7 +38,7 @@ OrgList.Skeleton = function SkeletonOrgList({
   length?: number;
 }) {
   return Array.from({ length }, (_, index) => (
-    <Skeleton className="h-10 w-full" key={index} />
+    <Skeleton className="h-12 w-full" key={index} />
   ));
 };
 
@@ -49,12 +49,11 @@ OrgList.Select = function OrgListSelect(org: Org) {
       href={`/organization/${org.id}`}
       className={buttonVariants({
         variant: "ghost",
-        size: "sm",
-        className: "flex w-full items-center justify-between",
+        className: "flex h-12 w-full items-center justify-between",
       })}
     >
       <div className="flex items-center gap-2">
-        <div className="relative h-10 w-10">
+        <div className="relative h-8 w-8">
           <Image
             src={org.image}
             alt="org image"

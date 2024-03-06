@@ -11,7 +11,7 @@ import {
   PopoverTrigger,
   PopoverClose,
 } from "@/components/ui/popover";
-import { useAction } from "@/hooks/use-action2";
+import { useAction } from "@/hooks/use-action";
 import { Button } from "@/components/ui/button";
 import { createBoard } from "@/server/actions/create-board";
 import { useProModal } from "@/store/use-pro-modal";

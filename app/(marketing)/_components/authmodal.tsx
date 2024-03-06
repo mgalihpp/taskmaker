@@ -13,14 +13,24 @@ import { useAuthModal } from "@/store/use-auth-modal";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { memo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { memo, useEffect, useState } from "react";
 
 const AuthModal = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const authModal = useAuthModal();
+  const searchParams = useSearchParams();
+  const { open, toggleOpen, set } = useAuthModal();
+
+  const isNotAuthorized = searchParams.has("callback");
+
+  useEffect(() => {
+    if (isNotAuthorized) {
+      set({ open: true });
+    }
+  }, [isNotAuthorized, set]);
 
   return (
-    <Dialog open={authModal.open} onOpenChange={authModal.toggleOpen}>
+    <Dialog open={open} onOpenChange={toggleOpen}>
       <DialogTrigger asChild>
         <Button>Login</Button>
       </DialogTrigger>
