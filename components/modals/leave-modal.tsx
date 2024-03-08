@@ -55,9 +55,9 @@ export function LeaveModal() {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>No</AlertDialogCancel>
           <Button onClick={handleLeaveOrg} disabled={LeavePending}>
-            Yes
+            Yes, leave
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

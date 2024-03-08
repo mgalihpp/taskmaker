@@ -44,7 +44,7 @@ export default function CopyInvitation({ orgId }: CopyInvitationProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <Label htmlFor={url} className="text-lg lg:text-2xl">
+      <Label htmlFor={url} className="text-base lg:text-2xl">
         Invite user
       </Label>
       <div className="flex items-center gap-2">
@@ -101,7 +101,7 @@ export default function CopyInvitation({ orgId }: CopyInvitationProps) {
         <div className="h-0.5 flex-1 bg-neutral-200"></div>
       </div>
 
-      <Label htmlFor="orgId" className="text-lg lg:text-2xl">
+      <Label htmlFor="orgId" className="text-base lg:text-2xl">
         Organization Id
       </Label>
 

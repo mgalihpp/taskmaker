@@ -57,7 +57,7 @@ export function DeleteModal() {
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <Button onClick={handleDeleteOrg} disabled={DeletePending}>
-            Yes
+            Yes, delete
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -43,9 +43,9 @@ export default function OrganizationCard({
         {/* sidebar */}
         <Tabs
           defaultValue="users"
-          className="flex h-full w-full flex-row gap-2 p-0"
+          className="flex h-full w-full flex-col gap-2 p-0 lg:flex-row"
         >
-          <TabsList className="flex h-auto w-full max-w-52 flex-col items-center justify-start rounded-none border bg-transparent px-4 py-8">
+          <TabsList className="flex h-auto w-full items-center justify-start rounded-none border bg-transparent px-4 py-8 md:flex-col lg:max-w-52">
             <TabsTrigger value="users" asChild>
               <Button
                 variant="ghost"
@@ -85,14 +85,14 @@ export default function OrganizationCard({
                     <TabsTrigger value="users">Users</TabsTrigger>
                     <TabsTrigger value="invitations">Invitations</TabsTrigger>
                   </TabsList>
-                  <TabsContent value="users">
+                  <TabsContent value="users" className="w-full">
                     <ul role="list" className="divide-y divide-gray-100">
                       {users.map((user) => (
                         <UserList user={user} key={user.id} />
                       ))}
                     </ul>
                   </TabsContent>
-                  <TabsContent value="invitations">
+                  <TabsContent value="invitations" className="w-full">
                     <CopyInvitation orgId={orgId} />
                   </TabsContent>
                 </Tabs>
@@ -146,7 +146,7 @@ export default function OrganizationCard({
                 <h2 className="text-base font-bold">Danger</h2>
                 <Separator className="my-2" />
 
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col items-center gap-4 md:flex-row">
                   <Button
                     onClick={() => onLeaveOpen(orgId)}
                     className="group gap-2 border border-red-500 bg-transparent text-red-500 hover:bg-red-500 hover:text-white"
