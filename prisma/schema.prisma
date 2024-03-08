@@ -63,7 +63,7 @@ model User {
   accounts        Account[]
   sessions        Session[]
 
-  orgs UserOrg[]
+  orgs UserOrganization[]
 }
 
 model Board {
@@ -146,12 +146,12 @@ model Org {
   image   String
   slugUrl String
 
-  createdAt DateTime  @default(now())
-  updateAt  DateTime  @updatedAt
-  users     UserOrg[]
+  createdAt DateTime           @default(now())
+  updateAt  DateTime           @updatedAt
+  users     UserOrganization[]
 }
 
-model UserOrg {
+model UserOrganization {
   id     String @id @default(uuid())
   user   User   @relation(fields: [userId], references: [id])
   userId String
