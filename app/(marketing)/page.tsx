@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAuthModal } from "@/store/use-auth-modal";
 import Pricing from "./_components/pricing";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const headingFont = localFont({
   src: "../../public/fonts/font.woff2",
@@ -19,7 +21,10 @@ const textFont = Poppins({
 });
 
 const MarketingPage = () => {
-  const authModal = useAuthModal();
+  const { data: session } = useSession();
+  const { toggleOpen } = useAuthModal();
+
+  const router = useRouter();
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -54,7 +59,13 @@ const MarketingPage = () => {
         <Button
           className="mt-6"
           size="lg"
-          onClick={() => authModal.toggleOpen()}
+          onClick={() => {
+            if (session?.user) {
+              router.push("/select-organization");
+            } else {
+              toggleOpen();
+            }
+          }}
         >
           Get TaskMaker for free
         </Button>
