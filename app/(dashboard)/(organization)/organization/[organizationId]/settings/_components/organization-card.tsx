@@ -8,10 +8,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CopyInvitation from "./copy-invitation";
 import { Separator } from "@/components/ui/separator";
 import { X } from "lucide-react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, ElementRef, useRef, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetcher } from "@/lib/fetcher";
+import { useRouter } from "next/navigation";
 
 interface OrganizationCardProps {
   users: User[];
@@ -24,6 +27,9 @@ export default function OrganizationCard({
 }: OrganizationCardProps) {
   const [activeTab, setActiveTab] = useState<"users" | "settings">("users");
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const queryClient = useQueryClient();
+
+  const router = useRouter();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const changeFile = e.target?.files?.[0];
@@ -32,6 +38,35 @@ export default function OrganizationCard({
       setImageFile(changeFile);
     }
   };
+
+  const {
+    mutate: LeaveOrgMutate,
+    isPending,
+    data: LeaveOrgResponse,
+  } = useMutation({
+    mutationKey: ["leave-org", orgId],
+    mutationFn: async () => {
+      // await fetch(`/api/org/${orgId}/leave`,);
+      const data = fetcher(`/api/org/${orgId}/leave`, {
+        method: "POST",
+      });
+
+      return data;
+    },
+  });
+
+  const handleLeaveOrg = () => {
+    LeaveOrgMutate(undefined, {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({
+          queryKey: ["org"],
+        });
+
+        router.replace(data as string);
+      },
+    });
+  };
+
   return (
     <Card className="h-full w-full rounded-md border">
       <CardContent className="flex h-full w-full flex-row gap-2 p-0">
@@ -142,7 +177,11 @@ export default function OrganizationCard({
                 <Separator className="my-2" />
 
                 <div className="flex items-center gap-4">
-                  <Button className="group gap-2 border border-red-500 bg-transparent text-red-500 hover:bg-red-500 hover:text-white">
+                  <Button
+                    onClick={handleLeaveOrg}
+                    disabled={isPending}
+                    className="group gap-2 border border-red-500 bg-transparent text-red-500 hover:bg-red-500 hover:text-white"
+                  >
                     <X className="h-4 w-4 stroke-current group-hover:stroke-white" />
                     Leave organization
                   </Button>

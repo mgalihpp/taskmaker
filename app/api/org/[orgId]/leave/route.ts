@@ -28,9 +28,7 @@ export async function POST(req: NextRequest) {
         status: 404,
       });
 
-    //check if user has join organization
-
-    const isUserExitsInOrg = await db.userOrg.findUnique({
+    await db.userOrg.delete({
       where: {
         userId_orgId: {
           orgId: org.id,
@@ -39,22 +37,9 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    if (isUserExitsInOrg)
-      return NextResponse.json("User already exits in organization", {
-        status: 400,
-      });
+    const callBackUrl = `/select-organization`;
 
-    // connect the user to organization
-    await db.userOrg.create({
-      data: {
-        orgId: org.id,
-        userId: user.id,
-      },
-    });
-
-    const callbackUrl = `/organization/${orgId}`;
-
-    return NextResponse.json(callbackUrl, { status: 200 });
+    return NextResponse.json(callBackUrl, { status: 200 });
   } catch (error) {
     return new NextResponse("Internal Error", { status: 500 });
   }

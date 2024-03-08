@@ -17,16 +17,16 @@ export const CardModal = () => {
   const { organizationId: orgId } = useParams();
 
   const { data: cardData } = useQuery<CardWithList>({
-    queryKey: ["card", id],
+    queryKey: ["card", id, orgId],
+    enabled: !!id && !!orgId,
     queryFn: () => fetcher(`/api/cards/${id}/${orgId}`),
   });
 
   const { data: auditLogData } = useQuery<AuditLog[]>({
-    queryKey: ["card-logs", id],
+    queryKey: ["card-logs", id, orgId],
+    enabled: !!id && !!orgId,
     queryFn: () => fetcher(`/api/cards/${id}/${orgId}/logs`),
   });
-
-  console.log();
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
