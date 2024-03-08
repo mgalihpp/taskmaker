@@ -9,6 +9,7 @@ import { Board } from "@prisma/client";
 import { HelpCircle, User2 } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { CreateBoard } from "./create-board-form";
 
 interface BoardListProps {
   orgId: string;
@@ -62,36 +63,13 @@ export const BoardList = async ({ orgId }: BoardListProps) => {
             style={{ backgroundImage: `url(${board.imageThumbUrl})` }}
           >
             <div className="absolute inset-0 bg-black/30 transition group-hover:bg-black/40">
-              <p className="relative p-2 font-semibold text-white truncate">
+              <p className="relative truncate p-2 font-semibold text-white">
                 {board.title}
               </p>
             </div>
           </Link>
         ))}
-        <FormPopover sideOffset={10} side="right">
-          <div
-            role="button"
-            className="relative flex aspect-video h-full w-full flex-col items-center justify-center gap-y-1 
-            rounded-sm bg-muted transition hover:opacity-75
-            "
-          >
-            <p className="text-sm">Create new board</p>
-            <span className="text-xs">
-              {isPro
-                ? "Unlimited"
-                : `${MAX_FREE_BOARDS - Number(availableCount)} remaining`}
-            </span>
-            <Hint
-              sideOffset={40}
-              description={`
-                Free workspaces can have up to 5 open boards. For unlimited boards upgrade this 
-                workspaces.
-            `}
-            >
-              <HelpCircle className="absolute bottom-2 right-2 h-[14px] w-[14px]" />
-            </Hint>
-          </div>
-        </FormPopover>
+        <CreateBoard isPro={isPro} availableCount={Number(availableCount)} />
       </div>
     </div>
   );

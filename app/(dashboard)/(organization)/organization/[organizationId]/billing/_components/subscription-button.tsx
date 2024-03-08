@@ -17,7 +17,7 @@ export const SubscriptionButton = ({
   isPro,
   orgId,
 }: SubscriptionButtonProps) => {
-  const { onOpen, set } = useProModal();
+  const { onOpen } = useProModal();
 
   const router = useRouter();
 
@@ -29,12 +29,10 @@ export const SubscriptionButton = ({
   });
 
   const handleClick = () => {
-    set({ orgId });
-
     if (isPro) {
       execute({ orgId });
     } else {
-      onOpen();
+      onOpen(orgId);
     }
   };
 

@@ -36,7 +36,7 @@ export const FormPopover = ({
   const proModal = useProModal();
   const router = useRouter();
   const closeRef = useRef<ElementRef<"button">>(null);
-  const { organizationId } = useParams();
+  const { organizationId: orgId } = useParams();
 
   const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess: (data) => {
@@ -46,7 +46,7 @@ export const FormPopover = ({
     },
     onError: (error) => {
       toast.error(error);
-      proModal.onOpen();
+      proModal.onOpen(orgId as string);
     },
   });
 
@@ -54,7 +54,7 @@ export const FormPopover = ({
     const title = formData.get("title") as string;
     const image = formData.get("image") as string;
 
-    execute({ title, image, orgId: organizationId as string });
+    execute({ title, image, orgId: orgId as string });
   };
 
   return (
