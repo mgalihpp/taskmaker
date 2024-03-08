@@ -40,7 +40,7 @@ export default function CopyInvitation({ orgId }: CopyInvitationProps) {
     }
   };
 
-  const url = absoluteUrl(`/organization/invite?orgId=${orgId}`);
+  const url = absoluteUrl(`/invite?orgId=${orgId}`);
 
   return (
     <div className="flex flex-col gap-4">

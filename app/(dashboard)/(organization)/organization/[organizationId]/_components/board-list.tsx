@@ -1,12 +1,9 @@
-import { FormPopover } from "@/components/form/form-popover";
-import { Hint } from "@/components/hint";
 import { Skeleton } from "@/components/ui/skeleton";
-import { MAX_FREE_BOARDS } from "@/constants/boards";
 import { db } from "@/server/db";
 import { manageAvailableCount } from "@/services/org-board-limit";
 import { checkSubscription } from "@/services/subscription";
 import { Board } from "@prisma/client";
-import { HelpCircle, User2 } from "lucide-react";
+import { User2 } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { CreateBoard } from "./create-board-form";

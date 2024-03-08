@@ -21,7 +21,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const settingsUrl = absoluteUrl(`/organization/${orgId}`);
+  const success_url = absoluteUrl(`/organization/${orgId}/?success=true`);
+  const settings_url = absoluteUrl(`/organization/${orgId}`);
+  const cancel_url = absoluteUrl(`/organization/${orgId}/?cancel=true`);
 
   let url = "";
 
@@ -35,14 +37,14 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     if (orgSubscription && orgSubscription.stripeCustomerId) {
       const stripeSession = await stripe.billingPortal.sessions.create({
         customer: orgSubscription.stripeCustomerId,
-        return_url: settingsUrl,
+        return_url: settings_url,
       });
 
       url = stripeSession.url;
     } else {
       const stripeSession = await stripe.checkout.sessions.create({
-        success_url: settingsUrl,
-        cancel_url: settingsUrl,
+        success_url,
+        cancel_url,
         payment_method_types: ["card"],
         mode: "subscription",
         billing_address_collection: "auto",

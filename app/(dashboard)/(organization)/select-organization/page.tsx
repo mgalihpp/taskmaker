@@ -235,6 +235,7 @@ export default function OrganizationPage() {
                   id="name"
                   name="name"
                   type="text"
+                  autoComplete="off"
                   onChange={handleInputChange}
                 />
                 {fieldErrors?.name && (

@@ -4,16 +4,14 @@ export default async function middleware(req: NextRequest) {
   const token = req.cookies.has(
     process.env.NODE_ENV === "development"
       ? "next-auth.session-token"
-      : "next-auth.session-token",
-    // "__Secure-next-auth.session-token",
+      : "__Secure-next-auth.session-token",
   );
+
+  const callbackUrl = req.nextUrl.pathname.replace(/\//g, "%2F");
 
   if (!token) {
     return NextResponse.redirect(
-      new URL(
-        `/?auth=not_authorized&callbackUrl=${req.nextUrl.pathname}`,
-        req.url,
-      ),
+      new URL(`/?auth=not_authorized&callbackUrl=${callbackUrl}`, req.url),
     );
   }
 

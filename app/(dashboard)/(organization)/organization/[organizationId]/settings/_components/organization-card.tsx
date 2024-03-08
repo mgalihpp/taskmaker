@@ -46,21 +46,21 @@ export default function OrganizationCard({
           className="flex h-full w-full flex-col gap-2 p-0 lg:flex-row"
         >
           <TabsList className="flex h-auto w-full items-center justify-start rounded-none border bg-transparent px-4 py-8 md:flex-col lg:max-w-52">
-            <TabsTrigger value="users" asChild>
-              <Button
-                variant="ghost"
-                className="w-full"
-                onClick={() => setActiveTab("users")}
-              >
+            <TabsTrigger
+              value="users"
+              onClick={() => setActiveTab("users")}
+              asChild
+            >
+              <Button variant="ghost" className="w-full">
                 Users
               </Button>
             </TabsTrigger>
-            <TabsTrigger value="settings" asChild>
-              <Button
-                variant="ghost"
-                className="w-full"
-                onClick={() => setActiveTab("settings")}
-              >
+            <TabsTrigger
+              value="settings"
+              onClick={() => setActiveTab("settings")}
+              asChild
+            >
+              <Button variant="ghost" className="w-full">
                 Settings
               </Button>
             </TabsTrigger>
