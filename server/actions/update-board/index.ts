@@ -1,0 +1,55 @@
+"use server"
+
+import { getServerAuthSession } from "@/server/auth";
+import { InputType, ReturnType } from "./types";
+import { db } from "@/server/db";
+import { createAuditLog } from "@/services/create-audit-log";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
+import { revalidatePath } from "next/cache";
+import { createSafeAction } from "@/lib/create-safe-action";
+import { UpdateBoard } from "./schema";
+
+const handler = async (data: InputType): Promise<ReturnType> => {
+  const session = await getServerAuthSession();
+
+  const user = session?.user;
+
+  if (!user) {
+    return {
+      error: "Unauthorized",
+    };
+  }
+
+  const { id, orgId, title } = data;
+
+  let board;
+
+  try {
+    board = await db.board.update({
+      where: {
+        id,
+        orgId,
+      },
+      data: {
+        title,
+      },
+    });
+
+    await createAuditLog({
+      entityTitle: board.title,
+      entityId: board.id,
+      entityType: ENTITY_TYPE.BOARD,
+      action: ACTION.UPDATE,
+      orgId,
+    });
+  } catch (error) {
+    return {
+      error: "Failed to update.",
+    };
+  }
+
+  revalidatePath(`/board/${id}/${orgId}`);
+  return { data: board };
+};
+
+export const updateBoard = createSafeAction(UpdateBoard, handler);

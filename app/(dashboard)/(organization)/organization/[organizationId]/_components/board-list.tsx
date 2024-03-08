@@ -62,7 +62,7 @@ export const BoardList = async ({ orgId }: BoardListProps) => {
             style={{ backgroundImage: `url(${board.imageThumbUrl})` }}
           >
             <div className="absolute inset-0 bg-black/30 transition group-hover:bg-black/40">
-              <p className="relative p-2 font-semibold text-white">
+              <p className="relative p-2 font-semibold text-white truncate">
                 {board.title}
               </p>
             </div>

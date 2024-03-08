@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export default async function middleware(req: NextRequest) {
-  const token = req.cookies.has("next-auth.session-token");
+  const token = req.cookies.has(
+    process.env.NODE_ENV === "development"
+      ? "next-auth.session-token"
+      : "__Secure-next-auth.session-token",
+  );
 
   if (!token) {
     return NextResponse.redirect(new URL("/?callback=not_authorized", req.url));

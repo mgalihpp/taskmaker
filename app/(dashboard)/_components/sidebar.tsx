@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Accordion } from "@/components/ui/accordion";
 
-import { NavItem, Organization } from "./nav-item";
+import { NavItem, Organization } from "../(organization)/organization/_components/nav-item";
 import { useQuery } from "@tanstack/react-query";
 import { Org } from "@prisma/client";
 import { fetcher } from "@/lib/fetcher";

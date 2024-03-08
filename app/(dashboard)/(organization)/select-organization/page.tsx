@@ -31,6 +31,8 @@ export default function OrganizationPage() {
 
   const btnRef = useRef<HTMLButtonElement | null>(null);
 
+  const [error, setError] = useState("");
+
   const { data, isLoading } = useQuery<Org[]>({
     queryKey: ["org"],
     queryFn: () => fetcher("/api/org"),
@@ -47,6 +49,7 @@ export default function OrganizationPage() {
   const [input, setInput] = useState({
     name: "",
     slugUrl: "",
+    orgId: "",
   });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -103,6 +106,26 @@ export default function OrganizationPage() {
     }
   };
 
+  const handleJoinOrganization = async () => {
+    if (input.orgId === "") return setError("Please enter organization id");
+
+    try {
+      const res = await fetch(`/api/org/${input.orgId}/invite`, {
+        method: "POST",
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        router.push(data);
+      } else {
+        setError(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex h-dvh flex-col items-center justify-center">
       {page === 0 ? (
@@ -130,7 +153,7 @@ export default function OrganizationPage() {
               <div className="h-0.5 flex-1 bg-neutral-200"></div>
             </div>
 
-            <div className="flex w-full items-center justify-center">
+            <div className="flex w-full flex-col items-center justify-center gap-2">
               <Button
                 type="button"
                 className="w-full"
@@ -139,10 +162,18 @@ export default function OrganizationPage() {
               >
                 Create a organization
               </Button>
+
+              <Button
+                type="button"
+                className="w-full bg-gradient-to-r from-fuchsia-600 to-pink-600 hover:from-fuchsia-500 hover:to-pink-500"
+                onClick={() => setPage(2)}
+              >
+                Join organization
+              </Button>
             </div>
           </CardContent>
         </Card>
-      ) : (
+      ) : page === 1 ? (
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Create organization</CardTitle>
@@ -233,6 +264,55 @@ export default function OrganizationPage() {
               </Button>
             </CardFooter>
           </form>
+        </Card>
+      ) : (
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle>Join organization</CardTitle>
+            <p className="text-base font-normal text-neutral-400">
+              to continue to TaskMaker
+            </p>
+          </CardHeader>
+          <CardContent className="w-full space-y-6">
+            <div className="flex w-full flex-col gap-2">
+              <Label htmlFor="orgId" className="text-start text-lg">
+                Organization ID
+              </Label>
+
+              <Input
+                id="orgId"
+                name="orgId"
+                placeholder="Enter organization Id"
+                autoComplete="off"
+                onChange={handleInputChange}
+              />
+              {error && <p className="text-xs text-red-500">{error}</p>}
+            </div>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setPage(0)}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              ref={btnRef}
+              onClick={() => handleJoinOrganization()}
+              disabled={input.orgId.length < 10}
+              className="text-sm font-bold uppercase"
+              size="sm"
+            >
+              {isPending ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <span className="text-xs">Join organization</span>
+              )}
+            </Button>
+          </CardFooter>
         </Card>
       )}
     </div>
