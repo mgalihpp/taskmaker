@@ -12,23 +12,10 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useAuthModal } from "@/store/use-auth-modal";
 import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export function UserNav() {
-  const { data: session, status } = useSession();
-  const { set } = useAuthModal();
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      set({ open: true });
-      router.push("/");
-    }
-  }, [status, router, set]);
+  const { data: session } = useSession();
 
   return (
     <DropdownMenu>

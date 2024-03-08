@@ -21,7 +21,9 @@ export async function POST(req: NextRequest) {
 
     if (res.error) return NextResponse.json("Bad Request", { status: 400 });
 
-    return NextResponse.json("Organization has been deleted", { status: 204 });
+    const callBackUrl = `/select-organization`;
+
+    return NextResponse.json(callBackUrl, { status: 200 });
   } catch (error) {
     return new NextResponse("Internal Error", { status: 500 });
   }

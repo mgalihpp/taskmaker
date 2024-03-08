@@ -1,9 +1,21 @@
+import { getStorageRefFromDownloadURL } from "@/lib/utils";
 import { db } from "@/server/db";
+import { StorageReference, deleteObject } from "firebase/storage";
 
 export async function DeleteEverythingInOrg(
   orgId: string,
-): Promise<{ success?: boolean; error?: boolean }> {
+): Promise<{ success?: boolean; error?: boolean | string }> {
   try {
+    const org = await db.org.findUnique({
+      where: {
+        id: orgId,
+      },
+    });
+
+    if (!org) {
+      return { error: "Organization not found!" };
+    }
+
     await db.$transaction([
       db.userOrganization.deleteMany({
         where: { orgId },
@@ -22,15 +34,19 @@ export async function DeleteEverythingInOrg(
           orgId,
         },
       }),
-      db.org.delete({
-        where: {
-          id: orgId,
-        },
-      }),
     ]);
-    console.log(
-      `Deleted all related records for organization with ID: ${orgId}`,
-    );
+
+    const imageRef = getStorageRefFromDownloadURL(
+      org.image,
+    ) as StorageReference;
+
+    deleteObject(imageRef);
+
+    await db.org.delete({
+      where: {
+        id: orgId,
+      },
+    });
 
     return { success: true };
   } catch (error) {

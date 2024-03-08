@@ -24,7 +24,8 @@ const AuthModal = () => {
   const searchParams = useSearchParams();
   const { open, toggleOpen, set } = useAuthModal();
 
-  const isNotAuthorized = searchParams.has("callback");
+  const isNotAuthorized = searchParams.has("auth");
+  const hasCallbackUrl = searchParams.get("callbackUrl");
 
   useEffect(() => {
     if (isNotAuthorized) {
@@ -67,15 +68,15 @@ const AuthModal = () => {
             variant="outline"
             onClick={() => {
               toggleGoogleLoading(true);
-              signIn("google", { callbackUrl: "/select-organization" }).then(
-                (result) => {
-                  if (result?.ok) {
-                    toggleGoogleLoading(false);
-                  } else {
-                    toggleGoogleLoading(false);
-                  }
-                },
-              );
+              signIn("google", {
+                callbackUrl: hasCallbackUrl ? hasCallbackUrl : "/select-organization",
+              }).then((result) => {
+                if (result?.ok) {
+                  toggleGoogleLoading(false);
+                } else {
+                  toggleGoogleLoading(false);
+                }
+              });
             }}
             disabled={loadingStates["google"]}
           >
@@ -92,15 +93,15 @@ const AuthModal = () => {
             variant="outline"
             onClick={() => {
               toggleGitHubLoading(true);
-              signIn("github", { callbackUrl: "/select-organization" }).then(
-                (result) => {
-                  if (result?.ok) {
-                    toggleGitHubLoading(false);
-                  } else {
-                    toggleGitHubLoading(false);
-                  }
-                },
-              );
+              signIn("github", {
+                callbackUrl: hasCallbackUrl ? hasCallbackUrl : "/select-organization",
+              }).then((result) => {
+                if (result?.ok) {
+                  toggleGitHubLoading(false);
+                } else {
+                  toggleGitHubLoading(false);
+                }
+              });
             }}
             disabled={loadingStates["github"]}
           >

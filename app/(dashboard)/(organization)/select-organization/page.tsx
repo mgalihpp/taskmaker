@@ -14,7 +14,7 @@ import { useAction } from "@/hooks/use-action";
 import { fetcher } from "@/lib/fetcher";
 import { createOrg } from "@/server/actions/create-org";
 import { Org } from "@prisma/client";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useRef, useState } from "react";
@@ -46,6 +46,30 @@ export default function OrganizationPage() {
     onSuccess: (result) => router.push(`/organization/${result.id}`),
   });
 
+  const { mutate, isPending: joinPending } = useMutation({
+    mutationKey: ["join-org"],
+    mutationFn: async () => {
+      if (input.orgId === "") return setError("Please enter organization id");
+
+      try {
+        const res = await fetch(`/api/org/${input.orgId}/invite`, {
+          method: "POST",
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          setError(data);
+          throw new Error();
+        }
+
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
+
   const [input, setInput] = useState({
     name: "",
     slugUrl: "",
@@ -59,9 +83,12 @@ export default function OrganizationPage() {
   ) => {
     const { name, value } = e.target;
 
+    const slugUrl = input.name.toLowerCase().replace(/\s+/g, "-");
+
     setInput((prevOrg) => ({
       ...prevOrg,
       [name]: value,
+      slugUrl: slugUrl,
     }));
   };
 
@@ -106,24 +133,12 @@ export default function OrganizationPage() {
     }
   };
 
-  const handleJoinOrganization = async () => {
-    if (input.orgId === "") return setError("Please enter organization id");
-
-    try {
-      const res = await fetch(`/api/org/${input.orgId}/invite`, {
-        method: "POST",
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
+  const handleJoinOrganization = () => {
+    mutate(undefined, {
+      onSuccess: (data) => {
         router.push(data);
-      } else {
-        setError(data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+      },
+    });
   };
 
   return (
@@ -231,7 +246,9 @@ export default function OrganizationPage() {
                   id="slugUrl"
                   name="slugUrl"
                   type="text"
-                  onChange={handleInputChange}
+                  value={input.name.toLowerCase().replace(/\s+/g, "-")}
+                  readOnly
+                  disabled
                 />
                 {fieldErrors?.slugUrl && (
                   <p className="text-xs text-red-500">{fieldErrors.slugUrl}</p>
@@ -306,7 +323,7 @@ export default function OrganizationPage() {
               className="text-sm font-bold uppercase"
               size="sm"
             >
-              {isPending ? (
+              {joinPending ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
                 <span className="text-xs">Join organization</span>
