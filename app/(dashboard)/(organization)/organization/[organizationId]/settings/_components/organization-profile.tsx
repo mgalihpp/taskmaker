@@ -8,7 +8,7 @@ interface OrganizationProfileProps {
 export const OrganizationProfile = async ({
   orgId,
 }: OrganizationProfileProps) => {
-  const usersOrg = await db.userOrg.findMany({
+  const userOrganization = await db.userOrganization.findMany({
     where: {
       orgId,
     },
@@ -19,10 +19,10 @@ export const OrganizationProfile = async ({
   });
 
   // get org
-  const [org] = usersOrg?.map(({ org }) => org);
+  const [org] = userOrganization?.map(({ org }) => org);
 
   // get the users
-  const users = usersOrg?.map(({ user }) => user);
+  const users = userOrganization?.map(({ user }) => user);
 
   return (
     <div>

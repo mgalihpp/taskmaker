@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     if (!session?.user)
       return new NextResponse("Unauthorized", { status: 401 });
 
-    const userOrg = await db.userOrg.findFirst({
+    const userOrganization = await db.userOrganization.findFirst({
       where: {
         userId: session.user.id,
         orgId: orgId as string,
@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    const org = userOrg?.org;
+    const org = userOrganization?.org;
 
     return NextResponse.json(org, { status: 200 });
   } catch (error) {

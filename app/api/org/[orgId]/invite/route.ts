@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
     //check if user has join organization
 
-    const isUserExitsInOrg = await db.userOrg.findUnique({
+    const isUserExitsInOrg = await db.userOrganization.findUnique({
       where: {
         userId_orgId: {
           orgId: org.id,
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
       });
 
     // connect the user to organization
-    await db.userOrg.create({
+    await db.userOrganization.create({
       data: {
         orgId: org.id,
         userId: user.id,

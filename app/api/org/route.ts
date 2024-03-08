@@ -9,7 +9,7 @@ export async function GET() {
     if (!session?.user)
       return new NextResponse("Unauthorized", { status: 401 });
 
-    const org = await db.userOrg.findMany({
+    const org = await db.userOrganization.findMany({
       where: {
         userId: session.user.id,
       },

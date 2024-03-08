@@ -39,18 +39,23 @@ export default function OrganizationCard({
     }
   };
 
-  const {
-    mutate: LeaveOrgMutate,
-    isPending,
-    data: LeaveOrgResponse,
-  } = useMutation({
+  const { mutate: LeaveOrgMutate, isPending: LeavePending } = useMutation({
     mutationKey: ["leave-org", orgId],
     mutationFn: async () => {
-      // await fetch(`/api/org/${orgId}/leave`,);
       const data = fetcher(`/api/org/${orgId}/leave`, {
         method: "POST",
       });
 
+      return data;
+    },
+  });
+
+  const { mutate: DeleteOrgMutate, isPending: DeletePending } = useMutation({
+    mutationKey: ["delete-org", orgId],
+    mutationFn: async () => {
+      const data = fetcher(`/api/org/${orgId}/delete`, {
+        method: "POST",
+      });
       return data;
     },
   });
@@ -63,6 +68,20 @@ export default function OrganizationCard({
         });
 
         router.replace(data as string);
+      },
+    });
+  };
+
+  const handleDeleteOrg = () => {
+    DeleteOrgMutate(undefined, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["org"],
+        });
+
+        const callbackUrl = "/select-organization";
+
+        router.replace(callbackUrl);
       },
     });
   };
@@ -179,13 +198,17 @@ export default function OrganizationCard({
                 <div className="flex items-center gap-4">
                   <Button
                     onClick={handleLeaveOrg}
-                    disabled={isPending}
+                    disabled={LeavePending}
                     className="group gap-2 border border-red-500 bg-transparent text-red-500 hover:bg-red-500 hover:text-white"
                   >
                     <X className="h-4 w-4 stroke-current group-hover:stroke-white" />
                     Leave organization
                   </Button>
-                  <Button className="group gap-2 border border-red-500 bg-transparent text-red-500 hover:bg-red-500 hover:text-white">
+                  <Button
+                    onClick={handleDeleteOrg}
+                    disabled={DeletePending}
+                    className="group gap-2 border border-red-500 bg-transparent text-red-500 hover:bg-red-500 hover:text-white"
+                  >
                     <X className="h-4 w-4 stroke-current group-hover:stroke-white" />
                     Delete organization
                   </Button>

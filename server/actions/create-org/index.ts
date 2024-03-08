@@ -27,7 +27,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     },
   });
 
-  const Org = await db.userOrg.create({
+  const Org = await db.userOrganization.create({
     data: {
       user: {
         connect: {

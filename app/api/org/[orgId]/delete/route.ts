@@ -1,5 +1,5 @@
 import { getServerAuthSession } from "@/server/auth";
-import { db } from "@/server/db";
+import { DeleteEverythingInOrg } from "@/services/delete-everything-org";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -17,29 +17,11 @@ export async function POST(req: NextRequest) {
 
     const orgId = parts[parts.length - 2];
 
-    const org = await db.org.findFirst({
-      where: {
-        id: orgId,
-      },
-    });
+    const res = await DeleteEverythingInOrg(orgId);
 
-    if (!org)
-      return NextResponse.json("Organization ID is not found", {
-        status: 404,
-      });
+    if (res.error) return NextResponse.json("Bad Request", { status: 400 });
 
-    await db.userOrganization.delete({
-      where: {
-        userId_orgId: {
-          orgId: org.id,
-          userId: user.id,
-        },
-      },
-    });
-
-    const callBackUrl = `/select-organization`;
-
-    return NextResponse.json(callBackUrl, { status: 200 });
+    return NextResponse.json("Organization has been deleted", { status: 204 });
   } catch (error) {
     return new NextResponse("Internal Error", { status: 500 });
   }
