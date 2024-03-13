@@ -48,7 +48,7 @@ const MarketingPage = () => {
         </div>
         <div
           className={cn(
-            "mx-auto mt-4 max-w-xs text-center text-sm text-neutral-400 md:max-w-2xl md:text-xl",
+            "mx-auto mt-4 max-w-xs text-center text-sm text-gray-700 md:max-w-2xl md:text-xl",
             textFont.className,
           )}
         >
