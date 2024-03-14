@@ -3,6 +3,7 @@
 import { useAuthModal } from "@/store/use-auth-modal";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { plans } from "@/constants/tier";
 
 export default function Pricing() {
   const { set } = useAuthModal();
@@ -10,31 +11,6 @@ export default function Pricing() {
   const { data: session } = useSession();
 
   const router = useRouter();
-
-  const plans = {
-    free: [
-      {
-        name: "Free 5 boards",
-      },
-      {
-        name: "1 Organization",
-      },
-    ],
-    pro: [
-      {
-        name: "Unlimited boards",
-      },
-      {
-        name: "Advanced checklists",
-      },
-      {
-        name: "Admin and security features",
-      },
-      {
-        name: "And more!",
-      },
-    ],
-  };
 
   return (
     <div className="mx-auto px-4 py-16 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8 lg:py-20">

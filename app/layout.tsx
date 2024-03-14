@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NextSessionProvider from "@/providers/NextAuthProvider";
 import { config } from "@/config/title";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,9 +27,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <NextSessionProvider>{children}</NextSessionProvider>
+        <ThemeProvider defaultTheme="light" enableSystem attribute="class">
+          <NextSessionProvider>{children}</NextSessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

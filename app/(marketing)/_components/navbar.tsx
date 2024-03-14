@@ -1,7 +1,7 @@
-import { Logo } from "@/components/logo";
+import Logo from "@/components/logo";
 import AuthModal from "./authmodal";
 import { getServerAuthSession } from "@/server/auth";
-import { SignedModal } from "./signedmodal";
+import SignedModal from "./signedmodal";
 import { memo } from "react";
 const Navbar = async () => {
   const session = await getServerAuthSession();
