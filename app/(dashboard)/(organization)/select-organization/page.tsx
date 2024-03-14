@@ -76,6 +76,8 @@ export default function OrganizationPage() {
     orgId: "",
   });
 
+  console.log(input);
+
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleInputChange = (
@@ -83,7 +85,7 @@ export default function OrganizationPage() {
   ) => {
     const { name, value } = e.target;
 
-    const slugUrl = input.name.toLowerCase().replace(/\s+/g, "-");
+    const slugUrl = value.toLowerCase().replace(/\s+/g, "-"); // Use value instead of input.name
 
     setInput((prevOrg) => ({
       ...prevOrg,
