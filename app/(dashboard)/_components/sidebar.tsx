@@ -79,7 +79,7 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
           className="ml-auto"
         >
           <Link href="/select-organization">
-            <Plus className="h-4 w-4" />
+            <Plus className="h-4 w-4 dark:text-neutral-300" />
           </Link>
         </Button>
       </div>

@@ -75,7 +75,7 @@ export default function OrganizationCard({
               <h1 className="text-lg font-semibold lg:text-2xl">
                 Manage Users
               </h1>
-              <p className="text-sm text-neutral-500">
+              <p className="text-sm text-neutral-500 dark:text-neutral-300">
                 View and manage organization users
               </p>
 
@@ -104,7 +104,7 @@ export default function OrganizationCard({
               className="mt-0 flex h-full w-full flex-col px-4 py-8"
             >
               <h1 className="text-lg font-semibold lg:text-2xl">Settings</h1>
-              <p className="text-sm text-neutral-500">
+              <p className="text-sm text-neutral-500 dark:text-neutral-300">
                 Manage organization settings
               </p>
               <div className="mt-4">

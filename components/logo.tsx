@@ -16,7 +16,7 @@ const Logo = ({ history }: { history?: string }) => {
         <Image src="/logo.svg" alt="Logo" height={30} width={30} />
         <p
           className={cn(
-            "py-auto text-lg text-neutral-700",
+            "py-auto text-lg text-neutral-700 dark:text-neutral-300",
             headingFont.className,
           )}
         >

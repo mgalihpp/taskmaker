@@ -68,7 +68,7 @@ export const ListForm = () => {
         <form
           action={handleFormAction}
           ref={formRef}
-          className="w-full space-y-4 rounded-md bg-white p-3 shadow-md"
+          className="w-full space-y-4 rounded-md bg-background p-3 shadow-md"
         >
           <FormInput
             ref={inputRef}
@@ -79,8 +79,8 @@ export const ListForm = () => {
                 "
             placeholder="Enter list title..."
           />
-          <input hidden value={boardId} name="boardId" readOnly/>
-          <input hidden value={orgId} name="orgId" readOnly/>
+          <input hidden value={boardId} name="boardId" readOnly />
+          <input hidden value={orgId} name="orgId" readOnly />
 
           <div className="flex items-center gap-x-1">
             <FormSubmit>Add list</FormSubmit>
@@ -98,7 +98,8 @@ export const ListForm = () => {
       <button
         onClick={enableEditing}
         className="flex w-full items-center rounded-md 
-        bg-white/80 p-3 text-sm font-medium transition hover:bg-white/50
+        bg-white/80 p-3 text-sm font-medium transition hover:bg-white/50 
+        dark:bg-black/80 dark:hover:bg-black/50
         "
       >
         <Plus className="mr-2 h-4 w-4" />

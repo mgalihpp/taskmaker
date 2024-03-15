@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { useAction } from "@/hooks/use-action";
 import { copyList } from "@/server/actions/copy-list";
 import { deleteList } from "@/server/actions/delete-list";
+import { useListModal } from "@/store/use-list-modal";
 import { List } from "@prisma/client";
 import { MoreHorizontal, Trash, X } from "lucide-react";
 import { ElementRef, useRef } from "react";
@@ -24,6 +25,8 @@ interface ListOptionsProps {
 }
 
 export const ListOptions = ({ data, onAddCard, orgId }: ListOptionsProps) => {
+  const { onOpen } = useListModal();
+
   const closeRef = useRef<ElementRef<"button">>(null);
 
   const { execute: executeDeleteList } = useAction(deleteList, {
@@ -73,7 +76,7 @@ export const ListOptions = ({ data, onAddCard, orgId }: ListOptionsProps) => {
           <MoreHorizontal className="h-4 w-4" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="py-3" side="bottom" align="start">
+      <PopoverContent className="space-y-2 py-3" side="bottom" align="start">
         <div className="pb-4 text-center text-sm font-medium text-neutral-600">
           List actions
         </div>
@@ -90,7 +93,8 @@ export const ListOptions = ({ data, onAddCard, orgId }: ListOptionsProps) => {
         <Button
           className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal"
           onClick={onAddCard}
-          variant="ghost"
+          variant="outline"
+          type="button"
         >
           Add card...
         </Button>
@@ -105,12 +109,20 @@ export const ListOptions = ({ data, onAddCard, orgId }: ListOptionsProps) => {
           />
           <input hidden name="orgId" id="orgId" value={orgId} readOnly />
           <FormSubmit
-            variant="ghost"
+            variant="outline"
             className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal"
           >
             Copy list...
           </FormSubmit>
         </form>
+        <Button
+          type="button"
+          onClick={() => onOpen(data.id)}
+          variant="outline"
+          className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal"
+        >
+          List settings
+        </Button>
         <Separator />
         <form action={onDelete}>
           <input hidden name="id" id="id" value={data.id} readOnly />

@@ -39,7 +39,7 @@ const MarketingPage = () => {
             <Medal className="mr-2 h-6 w-6" />
             No 1 task managment
           </div>
-          <h1 className="mb-6 text-center text-3xl text-neutral-800 md:text-6xl">
+          <h1 className="mb-6 text-center text-3xl text-neutral-800 dark:text-neutral-200 md:text-6xl">
             TaskMaker helps team move
           </h1>
           <div className="w-fit rounded-md bg-gradient-to-r from-fuchsia-600 to-pink-600 p-2 px-4 pb-4 text-3xl text-white md:text-6xl">
@@ -48,7 +48,7 @@ const MarketingPage = () => {
         </div>
         <div
           className={cn(
-            "mx-auto mt-4 max-w-xs text-center text-sm text-gray-700 md:max-w-2xl md:text-xl",
+            "mx-auto mt-4 max-w-xs text-center text-sm text-neutral-700 dark:text-neutral-400 md:max-w-2xl md:text-xl",
             textFont.className,
           )}
         >

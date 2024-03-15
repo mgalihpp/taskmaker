@@ -19,9 +19,9 @@ export const CardItem = ({ data, index }: CardItemProps) => {
           ref={provided.innerRef}
           role="button"
           onClick={() => onOpen(data.id)}
-          className="truncate rounded-md border-2 border-transparent bg-white 
+          className={`truncate rounded-md border-2 border-transparent ${data.primaryColor} ${data.secondaryColor}
                 px-3 py-2 text-sm shadow-sm hover:border-black
-                "
+                `}
         >
           {data.title}
         </div>

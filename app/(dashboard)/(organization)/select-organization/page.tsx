@@ -76,8 +76,6 @@ export default function OrganizationPage() {
     orgId: "",
   });
 
-  console.log(input);
-
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleInputChange = (
@@ -149,7 +147,7 @@ export default function OrganizationPage() {
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Select an organization</CardTitle>
-            <p className="text-base font-normal text-neutral-400">
+            <p className="text-base font-normal text-neutral-400 dark:text-neutral-200">
               to continue to TaskMaker
             </p>
           </CardHeader>
@@ -165,9 +163,9 @@ export default function OrganizationPage() {
             </div>
 
             <div className="flex flex-row items-center">
-              <div className="h-0.5 flex-1 bg-neutral-200"></div>
-              <p className="mx-4 text-sm text-neutral-400">or</p>
-              <div className="h-0.5 flex-1 bg-neutral-200"></div>
+              <div className="h-0.5 flex-1 bg-neutral-200 dark:text-neutral-400"></div>
+              <p className="mx-4 text-sm text-neutral-400 dark:text-neutral-200">or</p>
+              <div className="h-0.5 flex-1 bg-neutral-200 dark:text-neutral-400"></div>
             </div>
 
             <div className="flex w-full flex-col items-center justify-center gap-2">
@@ -182,7 +180,7 @@ export default function OrganizationPage() {
 
               <Button
                 type="button"
-                className="w-full bg-gradient-to-r from-fuchsia-600 to-pink-600 hover:from-fuchsia-500 hover:to-pink-500"
+                className="w-full bg-gradient-to-r from-fuchsia-600 to-pink-600 hover:from-fuchsia-500 hover:to-pink-500 text-neutral-100"
                 onClick={() => setPage(2)}
               >
                 Join organization
@@ -194,7 +192,7 @@ export default function OrganizationPage() {
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Create organization</CardTitle>
-            <p className="text-base font-normal text-neutral-400">
+            <p className="text-base font-normal text-neutral-400 dark:text-neutral-200">
               to continue to TaskMaker
             </p>
           </CardHeader>
@@ -289,7 +287,7 @@ export default function OrganizationPage() {
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Join organization</CardTitle>
-            <p className="text-base font-normal text-neutral-400">
+            <p className="text-base font-normal text-neutral-400 dark:text-neutral-200">
               to continue to TaskMaker
             </p>
           </CardHeader>

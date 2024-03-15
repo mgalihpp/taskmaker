@@ -8,7 +8,7 @@ import { memo } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
 const SignedModal = () => {
-  const [orgHistory] = useLocalStorage("selected-org", {});
+  const [orgHistory] = useLocalStorage("selected-org", null);
 
   return (
     <div className="flex flex-row items-center gap-x-4">

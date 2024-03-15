@@ -92,6 +92,9 @@ model List {
 
   cards Card[]
 
+  primaryColor   String @default("bg-white")
+  secondaryColor String @default("text-neutral-900")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -106,6 +109,9 @@ model Card {
 
   listId String
   list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
+
+  primaryColor   String @default("bg-white")
+  secondaryColor String @default("text-neutral-900")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -73,7 +73,7 @@ export const ListHeader = ({ data, onAddCard, orgId }: ListHeaderProps) => {
   };
 
   return (
-    <div className="flex items-start justify-between gap-x-2 p-2 text-sm font-semibold">
+    <div className={`flex items-start justify-between gap-x-2 p-2 text-sm font-semibold ${data.secondaryColor}`}>
       {isEditing ? (
         <form
           action={handleFormAction}
@@ -95,10 +95,10 @@ export const ListHeader = ({ data, onAddCard, orgId }: ListHeaderProps) => {
             id="title"
             placeholder="Enter list title..."
             defaultValue={title}
-            className="focus:boder-input h-7 truncate border-transparent bg-transparent px-[7px] 
+            className={`focus:boder-input h-7 truncate border-transparent bg-transparent px-[7px] 
                 py-1 text-sm font-medium transition hover:border-input 
-                focus:bg-white
-                "
+                focus:${data.primaryColor}
+      `}
           />
           <button type="submit" hidden></button>
         </form>

@@ -18,10 +18,10 @@ export const UserList = ({ user }: UserListProps) => {
           />
         </div>
         <div className="min-w-0 flex-auto">
-          <p className="text-sm font-semibold leading-6 text-gray-900">
+          <p className="text-sm font-semibold leading-6 text-neutral-900 dark:text-neutral-100">
             {user.name}
           </p>
-          <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+          <p className="mt-1 truncate text-xs leading-5 text-neutral-500">
             {user.email}
           </p>
         </div>

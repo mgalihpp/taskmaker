@@ -16,11 +16,11 @@ export default function Pricing() {
     <div className="mx-auto px-4 py-16 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8 lg:py-20">
       <div className="mb-10 max-w-xl sm:text-center md:mx-auto md:mb-12 lg:max-w-2xl">
         <div>
-          <p className="bg-teal-accent-400 mb-4 inline-block rounded-full px-3 py-px text-xs font-semibold uppercase tracking-wider text-teal-900">
+          <p className="bg-teal-accent-400 mb-4 inline-block rounded-full px-3 py-px text-xs font-semibold uppercase tracking-wider text-teal-900 dark:text-teal-200">
             Our Pricing
           </p>
         </div>
-        <h2 className="mb-6 max-w-lg font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+        <h2 className="mb-6 max-w-lg font-sans text-3xl font-bold leading-none tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-4xl md:mx-auto">
           <span className="relative inline-block">
             <svg
               viewBox="0 0 52 24"
@@ -48,12 +48,12 @@ export default function Pricing() {
           </span>{" "}
           pricing. Pay as you grow.
         </h2>
-        <p className="text-base text-gray-700 md:text-lg">
+        <p className="text-base text-neutral-700 dark:text-neutral-300 md:text-lg">
           Explore the best of TaskMaker
         </p>
       </div>
       <div className="mx-auto grid max-w-md gap-10 sm:row-span-10 lg:max-w-screen-md lg:grid-cols-2">
-        <div className="flex flex-col justify-between rounded border bg-white p-5 shadow-sm lg:w-96">
+        <div className="flex flex-col justify-between rounded border bg-background p-5 shadow-sm lg:w-96">
           <div className="mb-6">
             <div className="mb-6 flex items-center justify-between border-b pb-6">
               <div>
@@ -64,7 +64,7 @@ export default function Pricing() {
               </div>
               <div className="bg-blue-gray-50 flex h-24 w-24 items-center justify-center rounded-full">
                 <svg
-                  className="h-10 w-10 text-gray-600"
+                  className="h-10 w-10 text-neutral-600 dark:text-neutral-400"
                   viewBox="0 0 24 24"
                   strokeLinecap="round"
                   strokeWidth="2"
@@ -108,7 +108,9 @@ export default function Pricing() {
                         />
                       </svg>
                     </div>
-                    <p className="font-medium text-gray-800">{plan.name}</p>
+                    <p className="font-medium text-gray-800 dark:text-neutral-200">
+                      {plan.name}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -123,7 +125,7 @@ export default function Pricing() {
 
                 void router.push(`/select-organization`);
               }}
-              className="group relative inline-flex h-12 w-full items-center justify-center overflow-hidden rounded-md border border-neutral-200 bg-white font-medium"
+              className="group relative inline-flex h-12 w-full items-center justify-center overflow-hidden rounded-md border border-neutral-200 bg-white font-medium dark:border-neutral-800"
             >
               <div className="inline-flex h-12 translate-y-0 items-center justify-center px-6 text-neutral-950 transition duration-500 group-hover:translate-y-[150%]">
                 Start for free
@@ -135,7 +137,7 @@ export default function Pricing() {
             </button>
           </div>
         </div>
-        <div className="flex flex-col justify-between rounded border bg-white p-5 shadow-sm lg:w-96">
+        <div className="flex flex-col justify-between rounded border bg-background p-5 shadow-sm lg:w-96">
           <div className="mb-6">
             <div className="mb-6 flex items-center justify-between border-b pb-6">
               <div>
@@ -144,7 +146,7 @@ export default function Pricing() {
                 </p>
                 <p className="text-5xl font-extrabold">$0.99</p>
               </div>
-              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-indigo-50">
+              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-indigo-50 dark:bg-indigo-950">
                 <svg
                   className="text-deep-purple-accent-400 h-10 w-10"
                   viewBox="0 0 24 24"
@@ -210,7 +212,9 @@ export default function Pricing() {
                         />
                       </svg>
                     </div>
-                    <p className="font-medium text-gray-800">{plan.name}</p>
+                    <p className="font-medium text-neutral-800 dark:text-neutral-200">
+                      {plan.name}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -224,7 +228,7 @@ export default function Pricing() {
                 }
                 void router.push(`/select-organization`);
               }}
-              className="group relative inline-flex h-12 w-full items-center justify-center overflow-hidden rounded-md bg-neutral-950 px-6 font-medium text-neutral-200 transition hover:scale-110"
+              className="group relative inline-flex h-12 w-full items-center justify-center overflow-hidden rounded-md bg-neutral-950 px-6 font-medium text-neutral-200 transition hover:scale-110 dark:bg-neutral-800 dark:text-neutral-400"
             >
               <span>Get started</span>
               <div className="absolute inset-0 flex size-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]">

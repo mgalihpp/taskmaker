@@ -50,14 +50,14 @@ const AuthModal = () => {
   return (
     <Dialog open={open} onOpenChange={toggleOpen}>
       <DialogTrigger asChild>
-        <Button>Login</Button>
+        <Button size='sm'>Login</Button>
       </DialogTrigger>
       <DialogContent className="max-w-md space-y-2">
         <DialogHeader>
           <DialogTitle>
             <span>Sign in</span>
           </DialogTitle>
-          <p className="text-base font-normal text-neutral-400">
+          <p className="text-base font-normal text-neutral-400 dark:text-neutral-200">
             to continue to platform
           </p>
         </DialogHeader>
@@ -115,7 +115,7 @@ const AuthModal = () => {
           </Button>
         </div>
         <DialogFooter>
-          <span className="text-xs text-neutral-700 ">
+          <span className="text-xs text-neutral-700 dark:text-neutral-300">
             By creating an account, you agree to our{" "}
             <Link href="#" className="underline">
               Terms of Service
@@ -167,6 +167,7 @@ const GithubLogo = () => {
       x="0px"
       y="0px"
       width="0.98em"
+      className="dark:bg-neutral-100 rounded-lg"
       height="1em"
       viewBox="0 0 30 30"
     >

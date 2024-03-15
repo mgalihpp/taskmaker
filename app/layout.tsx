@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider defaultTheme="light" enableSystem attribute="class">
+        <ThemeProvider defaultTheme="light" attribute="class">
           <NextSessionProvider>{children}</NextSessionProvider>
         </ThemeProvider>
       </body>
