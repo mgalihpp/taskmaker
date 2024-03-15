@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
     const user = session?.user;
 
-    if (!user) return NextResponse.json("Unauthoried", { status: 401 });
+    if (!user) return NextResponse.json("Unauthorized", { status: 401 });
 
     const card = await db.card.findUnique({
       where: {

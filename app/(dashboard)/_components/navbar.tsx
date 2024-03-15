@@ -9,10 +9,13 @@ import { memo, useEffect } from "react";
 import { MobileSidebar } from "./mobile-sidebar";
 import { ModeToggle } from "@/components/mode-toggle";
 import { useLocalStorage } from "usehooks-ts";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
+import Breadcrumb from "./breadcrumb";
 
 const Navbar = () => {
   const { organizationId: orgId } = useParams();
+
+  const pathname = usePathname();
 
   const [orgHistory, setOrgHistory] = useLocalStorage("selected-org", orgId);
 
@@ -22,6 +25,8 @@ const Navbar = () => {
     }
   }, [orgId, setOrgHistory]);
 
+  const onBoard = pathname.startsWith("/board");
+
   return (
     <nav className="fixed top-0 z-50 flex h-14 w-full items-center border-b bg-background px-4 shadow-sm">
       <MobileSidebar />
@@ -29,19 +34,26 @@ const Navbar = () => {
         <div className="hidden md:flex">
           <Logo history={orgHistory as string} />
         </div>
-        <FormPopover align="start" side="bottom" sideOffset={18}>
-          <Button
-            size="sm"
-            className="hidden h-auto rounded-sm px-2  py-1.5 md:block"
-          >
-            Create
-          </Button>
-        </FormPopover>
-        <FormPopover>
-          <Button size="sm" className="block rounded-sm md:hidden">
-            <Plus className="h-4 w-4" />
-          </Button>
-        </FormPopover>
+
+        {onBoard ? (
+          <Breadcrumb />
+        ) : (
+          <>
+            <FormPopover align="start" side="bottom" sideOffset={18}>
+              <Button
+                size="sm"
+                className="hidden h-auto rounded-sm px-2  py-1.5 md:block"
+              >
+                Create
+              </Button>
+            </FormPopover>
+            <FormPopover>
+              <Button size="sm" className="block rounded-sm md:hidden">
+                <Plus className="h-4 w-4" />
+              </Button>
+            </FormPopover>
+          </>
+        )}
       </div>
       <div className="ml-auto flex items-center gap-x-2">
         <ModeToggle />

@@ -77,7 +77,7 @@ export const ListOptions = ({ data, onAddCard, orgId }: ListOptionsProps) => {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="space-y-2 py-3" side="bottom" align="start">
-        <div className="pb-4 text-center text-sm font-medium text-neutral-600">
+        <div className="pb-4 text-center text-sm font-medium text-neutral-600 dark:text-neutral-300">
           List actions
         </div>
 
@@ -91,7 +91,7 @@ export const ListOptions = ({ data, onAddCard, orgId }: ListOptionsProps) => {
         </PopoverClose>
 
         <Button
-          className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal"
+          className="h-auto w-full justify-start p-2 px-5 text-sm font-normal"
           onClick={onAddCard}
           variant="outline"
           type="button"
@@ -110,7 +110,7 @@ export const ListOptions = ({ data, onAddCard, orgId }: ListOptionsProps) => {
           <input hidden name="orgId" id="orgId" value={orgId} readOnly />
           <FormSubmit
             variant="outline"
-            className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal"
+            className="h-auto w-full justify-start p-2 px-5 text-sm font-normal"
           >
             Copy list...
           </FormSubmit>
@@ -119,7 +119,7 @@ export const ListOptions = ({ data, onAddCard, orgId }: ListOptionsProps) => {
           type="button"
           onClick={() => onOpen(data.id)}
           variant="outline"
-          className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal"
+          className="h-auto w-full justify-start p-2 px-5 text-sm font-normal"
         >
           List settings
         </Button>
@@ -135,10 +135,8 @@ export const ListOptions = ({ data, onAddCard, orgId }: ListOptionsProps) => {
           />
           <input hidden name="orgId" id="orgId" value={orgId} readOnly />
           <FormSubmit
-            variant="ghost"
-            className="group h-auto w-full items-center justify-start gap-4 
-          border border-red-500 bg-transparent p-2 px-5 text-sm 
-          font-normal text-red-500 hover:bg-red-500 hover:text-white"
+            variant="destructive"
+            className="w-full items-center gap-2"
           >
             <Trash className="h-4 w-4 stroke-current group-hover:stroke-white" />
             Delete this list

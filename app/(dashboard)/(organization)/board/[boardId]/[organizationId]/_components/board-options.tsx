@@ -53,12 +53,10 @@ const BoardOptions = ({ id, orgId }: BoardOptionsProps) => {
         </PopoverClose>
 
         <Button
-          variant="ghost"
+          variant="destructive"
           onClick={onDelete}
           disabled={isLoading}
-          className="group h-auto w-full items-center justify-start gap-4 
-          border border-red-500 bg-transparent p-2 px-5 text-sm 
-          font-normal text-red-500 hover:bg-red-500 hover:text-white"
+          className="w-full items-center gap-2"
         >
           <Trash className="h-4 w-4 stroke-current group-hover:stroke-white" />
           Delete this board

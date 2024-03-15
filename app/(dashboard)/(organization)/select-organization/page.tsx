@@ -36,6 +36,7 @@ export default function OrganizationPage() {
   const { data, isLoading } = useQuery<Org[]>({
     queryKey: ["org"],
     queryFn: () => fetcher("/api/org"),
+    refetchOnWindowFocus: false,
   });
 
   const {
