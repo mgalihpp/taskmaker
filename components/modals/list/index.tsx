@@ -2,13 +2,11 @@
 
 import { fetcher } from "@/lib/fetcher";
 import { useListModal } from "@/store/use-list-modal";
-import { AuditLog, List } from "@prisma/client";
+import { List } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Header } from "./header";
-import { Activity } from "./activity";
-import { Actions } from "./actions";
 import { Color } from "./color";
 
 export const ListModal = () => {

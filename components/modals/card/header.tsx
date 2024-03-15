@@ -34,7 +34,7 @@ export const Header = ({ data }: HeaderProps) => {
 
   const inputRef = useRef<ElementRef<"input">>(null);
 
-  const [title, setTitle] = useState(data.title);
+  // const [title, setTitle] = useState(data.title);
 
   const onBlur = () => {
     inputRef.current?.form?.requestSubmit();
@@ -58,14 +58,15 @@ export const Header = ({ data }: HeaderProps) => {
   return (
     <div className="mb-6 flex w-full items-start gap-x-3">
       <Layout className="mt-1 h-5 w-5 text-neutral-700 dark:text-neutral-300" />
-      <div className="w-full"> 
+      <div className="w-full">
         <form action={handleFormAction}>
           <FormInput
             id="title"
             onBlur={onBlur}
+            ref={inputRef}
             defaultValue={data.title}
             className="relative -left-1.5 mb-0.5 w-[95%] truncate border-transparent 
-                    bg-transparent px-1 text-xl font-semibold text-neutral-700 dark:text-neutral-300 focus-visible:border-input focus-visible:bg-white
+                    bg-transparent px-1 text-xl font-semibold text-neutral-700 focus-visible:border-input focus-visible:bg-white dark:text-neutral-300
                     "
           />
         </form>

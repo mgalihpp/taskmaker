@@ -93,7 +93,7 @@ model List {
 
   cards Card[]
 
-  primaryColor   String @default("bg-white")
+  primaryColor   String @default("bg-neutral-200")
   secondaryColor String @default("text-neutral-900")
 
   createdAt DateTime @default(now())

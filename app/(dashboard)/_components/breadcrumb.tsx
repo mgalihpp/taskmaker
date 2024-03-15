@@ -1,5 +1,9 @@
 "use client";
 
+import { Skeleton } from "@/components/ui/skeleton";
+import { fetcher } from "@/lib/fetcher";
+import { Board } from "@prisma/client";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { memo } from "react";
@@ -7,6 +11,11 @@ import { useLocalStorage } from "usehooks-ts";
 
 const BreadCrumb = () => {
   const { boardId } = useParams();
+  const { data, isLoading } = useQuery<Board>({
+    queryKey: ["boardId", boardId],
+    queryFn: () => fetcher(`/api/boards/${boardId}`),
+  });
+
   const [orgHistory] = useLocalStorage("selected-org", null);
 
   return (
@@ -74,7 +83,11 @@ const BreadCrumb = () => {
               />
             </svg>
             <span className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400 md:ms-2">
-              Board {boardId}
+              {isLoading ? (
+                <Skeleton className="h-5 w-32" />
+              ) : (
+                <>{data?.title}</>
+              )}
             </span>
           </div>
         </li>

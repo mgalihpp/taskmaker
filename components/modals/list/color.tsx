@@ -1,28 +1,22 @@
-import { FormSubmit } from "@/components/form/form-submit";
-import { FormTextarea } from "@/components/form/form-textarea";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAction } from "@/hooks/use-action";
-import { updateCard } from "@/server/actions/update-card";
+import { cn } from "@/lib/utils";
 import { updateListColor } from "@/server/actions/update-list-color";
 import { useListModal } from "@/store/use-list-modal";
-import { CardWithList } from "@/types";
 import { List } from "@prisma/client";
-import { useQueryClient } from "@tanstack/react-query";
 import { AlignLeft } from "lucide-react";
 import { useParams } from "next/navigation";
-import { ElementRef, useRef, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
-import { useEventListener, useOnClickOutside } from "usehooks-ts";
 
 interface ColorProps {
   data: List;
 }
 
 type Color = {
-  primary: string;
-  secondary: string;
+  primary?: string;
+  secondary?: string;
 };
 
 type CardColorTypes = {
@@ -30,9 +24,13 @@ type CardColorTypes = {
   theme: Color;
 };
 
+type CardTextColorTypes = {
+  label: string;
+  color: string;
+};
+
 export const Color = ({ data }: ColorProps) => {
   const { onClose } = useListModal();
-  const queryClient = useQueryClient();
   const { boardId, organizationId: orgId } = useParams();
 
   const CARD_COLORS: CardColorTypes[] = [
@@ -73,8 +71,31 @@ export const Color = ({ data }: ColorProps) => {
     },
   ];
 
+  const CARD_TEXT_COLOR: CardTextColorTypes[] = [
+    {
+      label: "Black",
+      color: "text-neutral-950",
+    },
+    {
+      label: "Gray",
+      color: "text-neutral-700",
+    },
+    {
+      label: "White",
+      color: "text-neutral-100",
+    },
+  ];
+
   const { execute } = useAction(updateListColor, {
-    onSuccess: () => onClose(),
+    onSuccess: () => {
+      toast.success("updated list color");
+      onClose();
+    },
+  });
+
+  const [Color, setColor] = useState<Color>({
+    primary: data.primaryColor,
+    secondary: data.secondaryColor,
   });
 
   const handleColorChange = (color: Color) => {
@@ -82,15 +103,15 @@ export const Color = ({ data }: ColorProps) => {
       orgId: orgId as string,
       boardId: boardId as string,
       id: data.id,
-      primaryColor: color.primary,
-      secondaryColor: color.secondary,
+      primaryColor: color.primary as string,
+      secondaryColor: color.secondary as string,
     });
   };
 
   return (
     <div className="flex w-full items-start gap-x-3">
       <AlignLeft className="mt-0.5 h-5 w-5 text-neutral-700 dark:text-neutral-300" />
-      <div className="w-full">
+      <div className="w-full flex-col space-y-4">
         <p className="mb-2 font-semibold text-neutral-700 dark:text-neutral-300">
           Select color
         </p>
@@ -98,12 +119,15 @@ export const Color = ({ data }: ColorProps) => {
         <div className="flex flex-wrap items-center gap-2">
           {CARD_COLORS.map((color, index) => (
             <Button
-              onClick={() => handleColorChange(color.theme)}
+              onClick={() => setColor(color.theme)}
               type="button"
               variant="outline"
               size="icon"
               key={index}
-              className="flex w-24 items-center gap-x-2 px-2"
+              className={cn("flex w-24 items-center gap-x-2 px-2", {
+                "bg-neutral-200 dark:bg-accent":
+                  color.theme.primary === Color.primary,
+              })}
             >
               <div
                 className={`${color.theme.primary} relative flex h-4 w-4 shrink-0 overflow-hidden rounded-full`}
@@ -115,6 +139,49 @@ export const Color = ({ data }: ColorProps) => {
               </div>
             </Button>
           ))}
+        </div>
+
+        <p className="mb-2 font-semibold text-neutral-700 dark:text-neutral-300">
+          Select text color
+        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          {CARD_TEXT_COLOR.map((color, index) => (
+            <Button
+              onClick={() =>
+                setColor((value) => ({
+                  ...value,
+                  secondary: color.color,
+                }))
+              }
+              type="button"
+              variant="outline"
+              size="icon"
+              key={index}
+              className={cn("flex w-24 items-center gap-x-2 px-2", {
+                "bg-neutral-200 dark:bg-accent":
+                  color.color === Color.secondary,
+              })}
+            >
+              <div
+                className={`${color.color.replace("text-", "bg-")} relative flex h-4 w-4 shrink-0 overflow-hidden rounded-full`}
+              >
+                <div className="flex h-full w-full items-center justify-center rounded-full" />
+              </div>
+              <div>
+                <span>{color.label}</span>
+              </div>
+            </Button>
+          ))}
+        </div>
+
+        <div className="">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => handleColorChange(Color as Color)}
+          >
+            Save
+          </Button>
         </div>
       </div>
     </div>

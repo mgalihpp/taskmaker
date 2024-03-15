@@ -39,7 +39,7 @@ const BoardOptions = ({ id, orgId }: BoardOptionsProps) => {
       </PopoverTrigger>
 
       <PopoverContent className="py-3" side="bottom" align="start">
-        <div className="pb-4 text-center text-sm font-medium text-neutral-600">
+        <div className="pb-4 text-center text-sm font-medium text-neutral-600 dark:text-neutral-300">
           Board actions
         </div>
 

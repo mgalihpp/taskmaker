@@ -17,7 +17,7 @@ const BoardTitleForm = ({ data, orgId }: BoardTitleFormProps) => {
   const [title, setTitle] = useState(data.title);
   const [isEditing, setIsEditing] = useState(false);
 
-  const { execute, isLoading } = useAction(updateBoard, {
+  const { execute } = useAction(updateBoard, {
     onSuccess: () => {
       toast.success(`Board "${data.title}" updated!`);
       setTitle(data.title);

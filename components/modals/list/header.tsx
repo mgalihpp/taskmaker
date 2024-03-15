@@ -1,7 +1,6 @@
 import { FormInput } from "@/components/form/form-input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAction } from "@/hooks/use-action";
-import { updateCard } from "@/server/actions/update-card";
 import { updateList } from "@/server/actions/update-list";
 import { List } from "@prisma/client";
 import { useQueryClient } from "@tanstack/react-query";
@@ -65,16 +64,14 @@ export const Header = ({ data }: HeaderProps) => {
         <form action={handleFormAction}>
           <FormInput
             id="title"
+            ref={inputRef}
             onBlur={onBlur}
             defaultValue={title}
             className="relative -left-1.5 mb-0.5 w-[95%] truncate border-transparent 
-                    bg-transparent px-1 text-xl font-semibold text-neutral-700 dark:text-neutral-300 focus-visible:border-input focus-visible:bg-white
+                    bg-transparent px-1 text-xl font-semibold text-neutral-700 focus-visible:border-input focus-visible:bg-white dark:text-neutral-300
                     "
           />
         </form>
-        {/* <p className="text-sm text-muted-foreground">
-          in list <span className="underline">{data.list.title}</span>
-        </p> */}
       </div>
     </div>
   );
