@@ -59,7 +59,7 @@ model User {
   emailVerified   DateTime?
   image           String?
   backgroundImage String?   @db.String
-  handle          String?   @unique
+  handle          String?   
   description     String?   @db.String
   accounts        Account[]
   sessions        Session[]
